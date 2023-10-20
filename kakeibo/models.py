@@ -6,7 +6,7 @@ class PaymentCategory(models.Model):
 
     def __str__(self):
        return self.name
- 
+
 
 class Payment(models.Model):
     date = models.DateField("日付")

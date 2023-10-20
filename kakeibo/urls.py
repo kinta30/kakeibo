@@ -1,6 +1,7 @@
 from django.urls import path
-from .import view
+from .views import PaymentList,IncomeList
 
 urlpatterns = [
-    path("",paymentlist.as_view(),name="paymentlist"),
+    path("",views.index,name="Paymentlist"),
+    path("",views.index,name="IncomeList"),
 ]
