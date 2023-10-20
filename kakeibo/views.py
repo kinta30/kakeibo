@@ -7,6 +7,9 @@ from .models import Payment,PaymentCategory,Income,IncomeCategory
 class PaymentList(ListView):
     model = Payment
     context_object_name ="payment"
+    def get_PaymentList(self):
+        return "hallo world"
+
 
 class IncomeList(ListView):
     model = Income
