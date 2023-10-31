@@ -6,7 +6,7 @@ from .models import Payment,PaymentCategory,Income,IncomeCategory
 # Create your views here.
 class PaymentList(ListView):
     model = Payment
-    context_object_name ="payment"
+    context_object_name ="payments"
     def get_PaymentList(self):
         return "hallo world"
 
