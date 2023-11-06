@@ -1,4 +1,14 @@
-<h1>Payment List</h1>
+<h1>Kfree家計簿</h1>
+
+<h1>
+    <a href="payment_list.html">支出一覧</a>
+    <a href="income_list.html">収入一覧</a>
+    <a href=>支出登録</a>
+    <a href=>収入登録</a>
+    <a href=>収支推移</a>
+    <a href=>収支</a>
+</h1>
+{% block content %}
 
 <div class="header">支出検索</div>
 <div>登録月</div>
@@ -28,17 +38,14 @@
         <option>12月</option>
     </select>
 </label>
-<label for="mony">金額</label>
+<label for="price">金額</label>
 <input type="text" id="mony" name="mony" required minlength="4" maxlength="8" size="10" />
-<div>カテゴリ</div>
-
-
+<label for="category">カテゴリ</label>
 <label for="A">摘要</label>
 <input type="text" id="A" name="A" required minlength="4" maxlength="8" size="10" />
 
 <button class="serchbutton" type="submit">検索</button>
 
-{% block content %}
 <table>
     <thead>
         <tr>支出一覧
@@ -50,16 +57,14 @@
         </tr>
     </thead>
     <tbody>
-    {% for payment in paymentLists %}
+    {% for payment in payments %}
         <tr>
             <td>{{ payment.date }}</td>
-            <td>{{ payment.mony }}</td>
+            <td>{{ payment.price }}</td>
             <td>{{ payment.category }}</td>
-            <td></td>
             <td></td>
         {% endfor %}
         </tr>
     </tbody>
 </table>
-
 {% endblock content %}
