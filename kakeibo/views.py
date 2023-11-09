@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView,CreateView
 
 from .models import Payment,PaymentCategory,Income,IncomeCategory
 
@@ -15,3 +15,10 @@ class IncomeList(ListView):
     model = Income
     context_object_name ="Income"
 
+class PaymentCreate(CreateView):
+    model = Payment
+    context_object_name ="payment"
+
+class IncomeCreate(CreateView):
+    model = Income
+    context_object_name ="Income"

@@ -1,10 +1,10 @@
 <h1>Kfree家計簿</h1>
 
 <h1>
-    <a href="'payment_list.html'">支出一覧</a>
-    <a href="'income_list.html'">収入一覧</a>
-    <a href=>支出登録</a>
-    <a href=>収入登録</a>
+    <a href="{% url'kakeibo:payment_list' %}">支出一覧</a>
+    <a href="{% url'kakeibo:income_list' %}">収入一覧</a>
+    <a href="{% url'kakeibo:income_list' %}">支出登録</a>
+    <a href="{% url'kakeibo:income_list' %}">収入登録</a>
     <a href=>収支推移</a>
     <a href=>収支</a>
 </h1>
@@ -24,6 +24,18 @@
 </label>
 <label class="month">
     <select>
+        <option>1月</option>
+        <option>2月</option>
+        <option>3月</option>
+        <option>4月</option>
+        <option>5月</option>
+        <option>6月</option>
+        <option>7月</option>
+        <option>8月</option>
+        <option>9月</option>
+        <option>10月</option>
+        <option>11月</option>
+        <option>12月</option>
         <option>1月</option>
         <option>2月</option>
         <option>3月</option>
