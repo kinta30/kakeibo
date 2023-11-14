@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView,CreateView
 
 from .models import Payment,PaymentCategory,Income,IncomeCategory
-from .forms import IncomeCreate
+# from .forms import IncomeCreate
  
 # Create your views here.
 class PaymentList(ListView):
@@ -19,7 +19,9 @@ class IncomeList(ListView):
 class PaymentCreate(CreateView):
     model = Payment
     context_object_name ="payment"
+    fields = '__all__'
 
 class IncomeCreate(CreateView):
     model = Income
     context_object_name ="Income"
+    fields = '__all__'
