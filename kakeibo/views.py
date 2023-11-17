@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView,CreateView
+from django.views.generic import ListView,CreateView,TemplateView
 
 from .models import Payment,PaymentCategory,Income,IncomeCategory
 # from .forms import IncomeCreate
@@ -25,3 +25,7 @@ class IncomeCreate(CreateView):
     model = Income
     context_object_name ="Income"
     fields = '__all__'
+
+class MonthlyPayment(TemplateView):
+    model = Payment
+    template_name = "Monthly_Payment.html"
