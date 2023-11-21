@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView,CreateView,TemplateView
+from django.views.generic import ListView,CreateView,TemplateView,DeleteView,UpdateView
 
 from django.urls import reverse_lazy
 from .models import Payment,PaymentCategory,Income,IncomeCategory
@@ -31,10 +31,13 @@ class IncomeCreate(CreateView):
     fields = '__all__'
     success_url = reverse_lazy("payment_list")
 
-class PaymentDelete(CreateView):
+class PaymentDelete(DeleteView):
     model = Payment
     context_object_name ="payment"
-    fields = '__all__'
+
+class PaymentUpddate(UpdateView):
+    model = Payment
+    context_object_name ="payment"
 
 
 class MonthlyPayment(TemplateView):
