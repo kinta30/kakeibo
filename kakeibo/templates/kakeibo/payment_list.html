@@ -65,10 +65,10 @@
             <td>{{ payment.category }}</td>
             <td></td>
             <td>
-                <a herf="">
+                <a href="{% url 'payment_update' pk=payment.pk %}">
                     <button class="editbutton" type="button">編集</button>
                 </a>
-                <a herf="{% url 'payment_delete' %}">
+                <a href="{% url 'payment_delete' pk=payment.pk %}">
                     <button class="deletebutton" type="button">削除</button>
                 </a>
             </td>

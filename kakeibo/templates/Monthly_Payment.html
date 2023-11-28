@@ -12,5 +12,8 @@
 {% block content %}
 
 <div class="header">月間支出</div>
+<a href="{% url 'Monthly_Payment' prev_year prev_month %}">前月</a>
+<span>{{ year_month }}</span>
+<a href="{% url 'Monthly_Payment' next_year next_month %}">次月</a>
 
 {% endblock content %}
