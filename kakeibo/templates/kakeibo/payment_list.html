@@ -5,7 +5,7 @@
     <a href="{% url 'income_list' %}">収入一覧</a>
     <a href="{% url 'payment_create' %}">支出登録</a>
     <a href="{% url 'income_create' %}">収入登録</a>
-    <a href="{% url 'Monthly_Payment' %}">月間支出</a>
+    <a href="{% url 'Monthly_Payment' year='2023' month='11' %}">月間支出</a>
     <a href="{% url 'transition' %}">収支推移</a>
     <a href=>収支</a>
 </h1>
@@ -40,12 +40,20 @@
     </select>
 </label>
 <label for="price">金額</label>
-<input type="text" id="mony" name="mony" required minlength="4" maxlength="8" size="10" />
+<input type="text" id="price" name="price" required minlength="4" maxlength="8" size="10" />
 <label for="category">カテゴリ</label>
-<label for="A">摘要</label>
-<input type="text" id="A" name="A" required minlength="4" maxlength="8" size="10" />
+<label for="summary">摘要</label>
+<input type="text" id="summary" name="summary" required minlength="4" maxlength="8" size="10" />
 
 <button class="serchbutton" type="submit">検索</button>
+
+<form action="" method="get" id="serch">
+    <input name="year" value="{{ request.GET.year }}" type="text" />
+    <input name="month" value="{{ request.GET.month }}" type="text" />
+    <input name="category" value="{{ request.GET.category }}" type="text" />
+    <input name="summary" value="{{ request.GET.summary }}" type="text" />
+    <button type="submit">検索する</button>
+  </form>
 
 <table>
     <thead>
