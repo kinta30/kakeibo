@@ -13,21 +13,22 @@ class PaymentList(ListView):
     def get_PaymentList(self):
         return "hallo world"
     def get_queryset(self):
-        query = self.request.GET.get('year')
-        query4 = self.request.GET.get('month')
-        query2 = self.request.GET.get('category')
-        query3 = self.request.GET.get('summary')
+        year = self.request.GET.get('year')
+        month = self.request.GET.get('month')
+        price = self.request.GET.get('price')
+        category = self.request.GET.get('category')
+        summary = self.request.GET.get('summary')
         # print(query+query2+query3)
         date = "2023-11"
-        query2 = "光熱費"
-        if query != None and query4 != None:
-            date=query+'-'+query4
+        category = "光熱費"
+        if year != None and month != None:
+            date=year+'-'+month
         print(date)
+        print(category)
 
-
-        if query:
+        if date:
             payment_list = Payment.objects.filter(
-                date__icontains=date,category=query2)
+            date__icontains=date,price__icontains=price,category__name__icontains=category)
         else:
             payment_list = Payment.objects.all()
         return payment_list
