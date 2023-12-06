@@ -5,15 +5,32 @@
     <a href="{% url 'income_list' %}">収入一覧</a>
     <a href="{% url 'payment_create' %}">支出登録</a>
     <a href="{% url 'income_create' %}">収入登録</a>
-    <a href="{% url 'Monthly_Payment' year='2023' month='11' %}">月間支出</a>
+    <a href="{% url 'Monthly_Payment' year month %}">月間支出</a>
     <a href="{% url 'transition' %}">収支推移</a>
     <a href=>収支</a>
 </h1>
 {% block content %}
 
 <div class="header">月間支出</div>
-<a href="{% url 'Monthly_Payment' year=2023 month=10 %}">前月</a>
+<a href="{% url 'Monthly_Payment' year='2023' month='10' %}">前月</a>
 <span>{{ year_month }}</span>
-<a href="{% url 'Monthly_Payment' year=2023 month=12 %}">次月</a>
+<a href="{% url 'Monthly_Payment' year='2023' month='12' %}">次月</a>
+
+<table>
+    <tr>
+        <th>カテゴリ</th>
+        <th>金額</th>
+    </tr>
+    {% for payment in payments %}
+    <tr>
+        <td>{{ payment.category }}</td>
+        <td>{{ payment.price }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td>合計</td>
+        <td>{{ total_price }}</td>
+    </tr>
+</table>
 
 {% endblock content %}

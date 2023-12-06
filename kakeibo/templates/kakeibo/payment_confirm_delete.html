@@ -4,7 +4,7 @@
 <p>日付:{{ object.date }}</p>
 <p>カテゴリ:{{ object.category }}</p>
 <p>金額:{{ object.price }}</p>
-<p>摘要</p>
+<p>摘要:{{ object.summary }}</p>
 
 <form method="get" action="{% url 'payment_list' %}">
     <button type="submit">いいえ、一覧に戻ります</button>

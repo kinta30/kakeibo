@@ -3,6 +3,7 @@ from django.views.generic import ListView,CreateView,TemplateView,DeleteView,Upd
 
 from django.urls import reverse_lazy,reverse
 from .models import Payment,PaymentCategory,Income,IncomeCategory
+from datetime import datetime
 # from .forms import IncomeCreate
  
 # Create your views here.
@@ -21,10 +22,12 @@ class PaymentList(ListView):
         # print(query+query2+query3)
         date = "2023-11"
         category = "光熱費"
+        price = "0"
         if year != None and month != None:
             date=year+'-'+month
         print(date)
         print(category)
+        print(price)
 
         if date:
             payment_list = Payment.objects.filter(
@@ -79,8 +82,9 @@ class MonthlyPayment(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
-        context['year'] = 2023
-        context['month'] = 11
+        current_date = datetime.now()
+        context['year'] = current_date.year
+        context['month'] = current_date.month
         context['monthly_payment_url'] = reverse('Monthly_Payment', kwargs={'year': context['year'], 'month': context['month']})
         return context
 

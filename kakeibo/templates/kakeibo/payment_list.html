@@ -14,7 +14,7 @@
 <div class="header">支出検索</div>
 <label for="date">登録月</label>
 <label class="year">
-    <select name="year">
+    <select>
         <option>2024年</option>
         <option>2023年</option>
         <option>2022年</option>
@@ -24,7 +24,7 @@
     </select>
 </label>
 <label class="month">
-    <select name="month">
+    <select>
         <option>1月</option>
         <option>2月</option>
         <option>3月</option>
@@ -39,6 +39,9 @@
         <option>12月</option>
     </select>
 </label>
+    <label for="date">日付</label>
+    <input name="year" value="{{ request.GET.year }}" type="text" />
+    <input name="month" value="{{ request.GET.month }}" type="text" />
     <label for="price">金額</label>
     <input name="price" value="{{ request.GET.price }}" type="text" />
     <label for="category">カテゴリ</label>
