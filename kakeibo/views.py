@@ -22,16 +22,20 @@ class PaymentList(ListView):
         # print(query+query2+query3)
         date = "2023-11"
         category = "光熱費"
-        price = 1111
+        price = 55555
         if year != None and month != None:
             date=year+'-'+month
         print(date)
         print(category)
         print(price)
+        sum=0
 
         if date:
             payment_list = Payment.objects.filter(
             date__icontains=date,price__icontains=price,category__name__icontains=category)
+            for A in payment_list:
+                sum  = A.price
+            print(sum)
         else:
             payment_list = Payment.objects.all()
         return payment_list
@@ -83,8 +87,17 @@ class MonthlyPayment(TemplateView):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         current_date = datetime.now()
+        context['prevyear'] = current_date.year
+        context['prevmonth'] = current_date.month-1
         context['year'] = current_date.year
         context['month'] = current_date.month
+        context['nextyear'] = current_date.year
+        if current_date.month == 12:
+            context['nextyear'] +=1
+            nextmonth = 1
+        else:
+            nextmonth = current_date.month + 1
+        context['nextmonth']= nextmonth
         context['monthly_payment_url'] = reverse('Monthly_Payment', kwargs={'year': context['year'], 'month': context['month']})
         return context
 
