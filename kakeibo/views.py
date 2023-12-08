@@ -22,7 +22,7 @@ class PaymentList(ListView):
         # print(query+query2+query3)
         date = "2023-11"
         category = "光熱費"
-        price = "0"
+        price = 1111
         if year != None and month != None:
             date=year+'-'+month
         print(date)
