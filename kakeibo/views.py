@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render
 from django.views.generic import ListView,CreateView,TemplateView,DeleteView,UpdateView
 
@@ -29,16 +30,28 @@ class PaymentList(ListView):
         print(category)
         print(price)
         sum=0
+        filters = {}
 
+        
         if date:
-            payment_list = Payment.objects.filter(
-            date__icontains=date,price__icontains=price,category__name__icontains=category)
-            for A in payment_list:
-                sum  = A.price
-            print(sum)
-        else:
-            payment_list = Payment.objects.all()
+            filters['date__icontains'] = date
+        payment_list = Payment.objects.filter(**filters)
+        for A in payment_list:
+            sum  = A.price
+        print(sum)
+
+        if category:
+            filters['category__name__icontains'] = category
+        if summary:
+            filters['summary__icontains'] = summary
+
+
+        if filters:
+            payment_list = Payment.objects.filter(**filters)
+
         return payment_list
+
+
 
 class IncomeList(ListView):
     model = Income
@@ -99,6 +112,11 @@ class MonthlyPayment(TemplateView):
             nextmonth = current_date.month + 1
         context['nextmonth']= nextmonth
         context['monthly_payment_url'] = reverse('Monthly_Payment', kwargs={'year': context['year'], 'month': context['month']})
+        payments = Payment.objects.filter(date__year=context['year'], date__month=context['month'])
+        context['total_price'] = payments.aggregate(Sum('price'))['price__sum']
+        payments_by_category = payments.values('category').annotate(category_total=Sum('price'))
+        category_list = [{'category': payment['category'], 'total': payment['category_total']} for payment in payments_by_category]
+        context['category_list'] = category_list
         return context
 
 class transition(TemplateView):

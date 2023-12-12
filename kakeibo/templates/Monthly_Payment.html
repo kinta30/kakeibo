@@ -21,10 +21,10 @@
         <th>カテゴリ</th>
         <th>金額</th>
     </tr>
-    {% for payment in payments %}
+    {% for category in category_list %}
     <tr>
-        <td>{{ payment.category }}</td>
-        <td>{{ payment.price }}</td>
+        <td>{{ category.category }}</td>
+        <td>{{ category.total }}</td>
     </tr>
     {% endfor %}
     <tr>
