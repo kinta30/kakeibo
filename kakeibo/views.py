@@ -24,33 +24,52 @@ class PaymentList(ListView):
         date = "2023-11"
         category = "光熱費"
         price = 55555
+        print(year)
+        print(month)
         if year != None and month != None:
+            print('C')
             date=year+'-'+month
         print(date)
         print(category)
         print(price)
         sum=0
         filters = {}
+        print('B')
 
-        
+        payment_list = {}
         if date:
             filters['date__icontains'] = date
-        payment_list = Payment.objects.filter(**filters)
-        for A in payment_list:
-            sum  = A.price
-        print(sum)
-
+            print('A')
+            print( filters['date__icontains'])
         if category:
             filters['category__name__icontains'] = category
+            print( filters['category__name__icontains'])
         if summary:
             filters['summary__icontains'] = summary
-
+            print( filters['summary__icontains'])
 
         if filters:
             payment_list = Payment.objects.filter(**filters)
+            return payment_list
+        else :
+            return None
 
-        return payment_list
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_year = datetime.now().year
+        current_date = datetime.now()
+        context['years'] = range(2020, current_year + 1)
+        context['months'] = range(1, 13)
+        context['current_year'] = current_date.year
+        context['current_month'] = current_date.month
+        context['search_form'] = {
+        'year': self.request.GET.get('year'),
+        'month': self.request.GET.get('month'),
+        'category': self.request.GET.get('category'),
+        'summary': self.request.GET.get('summary'),
+        }
 
+        return context
 
 
 class IncomeList(ListView):
@@ -58,18 +77,36 @@ class IncomeList(ListView):
     context_object_name ="incomes"
     def get_IncomeList(self):
         return "hallo world"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_date = datetime.now()
+        context['current_year'] = current_date.year
+        context['current_month'] = current_date.month
+        return context
 
 class PaymentCreate(CreateView):
     model = Payment
     context_object_name ="payment"
     fields = '__all__'
     success_url = reverse_lazy("payment_list")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_date = datetime.now()
+        context['current_year'] = current_date.year
+        context['current_month'] = current_date.month
+        return context
 
 class IncomeCreate(CreateView):
     model = Income
     context_object_name ="income"
     fields = '__all__'
     success_url = reverse_lazy("income_list")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_date = datetime.now()
+        context['current_year'] = current_date.year
+        context['current_month'] = current_date.month
+        return context
 
 class PaymentDelete(DeleteView):
     model = Payment
@@ -114,11 +151,17 @@ class MonthlyPayment(TemplateView):
         context['monthly_payment_url'] = reverse('Monthly_Payment', kwargs={'year': context['year'], 'month': context['month']})
         payments = Payment.objects.filter(date__year=context['year'], date__month=context['month'])
         context['total_price'] = payments.aggregate(Sum('price'))['price__sum']
-        payments_by_category = payments.values('category').annotate(category_total=Sum('price'))
-        category_list = [{'category': payment['category'], 'total': payment['category_total']} for payment in payments_by_category]
+        payments_by_category = payments.values('category__name').annotate(category_total=Sum('price'))
+        category_list = [{'category': payment['category__name'], 'total': payment['category_total']} for payment in payments_by_category]
         context['category_list'] = category_list
         return context
 
 class transition(TemplateView):
     model = Payment
     template_name = "transition"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_date = datetime.now()
+        context['current_year'] = current_date.year
+        context['current_month'] = current_date.month
+        return context
